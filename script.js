@@ -1,19 +1,16 @@
 // DATA CONTROLLER
 var dataController = (function() {
-	var userAnswers, correctAnswersLeo;
+	var userAnswers, correctAnswers1;
 
-	correctAnswersLeo = []
+	correctAnswers1 = []
 	userAnswers = [];
 
-	return {
-
-	}
 
 })();
 
 // UI CONTROLLER 
 var UIController = (function() {
-	var questionsLeo, questionsLeoArr;
+	var questions1, questions1Arr;
 
 	questionsLeo = {
 		1: document.getElementById('1'),
@@ -25,14 +22,16 @@ var UIController = (function() {
 	questionsLeoArr = [document.getElementById('1'), document.getElementById('2'), document.getElementById('3'), document.getElementById('4')];
 	return {
 		getInput: function(question, arr) {
-			if (question === 'question-1')
-			arr.forEach(function(el) {
-				if (el.checked) {
-					return el.id
-				};
-			});
-			}
-	}
+			if (question === 'question-1') {
+				arr.forEach(function(el) {
+					if (el.checked) {
+						return el.id
+					};
+				});
+			};
+				
+		}
+	};
 
 })();
 
