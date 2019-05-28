@@ -1,0 +1,64 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Noto Sans KR';
+}
+
+h1 {
+  margin: 10px;
+  padding-left: 160px;
+}
+
+main {
+  display: flex;
+  justify-content: ;
+}
+
+.quiz-box {
+  display: flex;
+  flex-direction: column;
+  height: 420px;
+  width: 500px;
+  margin: 15px;
+  border-radius: 25px;
+  background-color: rgba(163, 209, 255, 0.3);
+}
+
+h2 {
+  margin: 10px;
+  font-size: 25px;
+}
+
+p {
+  margin: 10px;
+  padding-top: 25px;
+  font-size: 18px;
+}
+
+.allAnswers {
+  margin: 10px;
+}
+
+.answer {
+  padding-bottom: 5px;
+}
+
+button {
+  height: 35px;
+  width: 80px;
+  align-self: flex-end;
+  margin-top: 75px;
+  margin-right: 25px;
+  background-color: rgb(97, 125, 240);
+  cursor: pointer;
+  border: none;
+  color: white;
+  font-size: 18px;
+}
+
+button:focus {
+
+}
