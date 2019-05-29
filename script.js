@@ -1,38 +1,36 @@
 // DATA CONTROLLER
 var dataController = (function() {
-	var userAnswers, correctAnswers1;
+	
+	var questions = [
+		{
+			question: 'What was Leonardo DiCaprio\'s first movie?',
+			choices: ['Titanic', 'Critters 3', 'What\s Eating Gilbert Grape', 'Romeo + Juliet'],
+			correct: 2
 
-	correctAnswers1 = []
-	userAnswers = [];
+		},
+		{
+			question: 'Who starred in the movie Fight Club?',
+			choices: ['Jared Leto', 'Johnny Depp', 'Brad Pitt', 'Edward Norton'],
+			correct: 4
+		}
+		{
+			question: 'How many infinity stones are there in the Marvel universe?',
+			choices: [5, 4, 8, 6],
+			correct: 4
+		}
+		{
+			question: 'Who played the first Batman in a movie?',
+			choices: ['Michael Caine', 'Michael Jacskson', 'Michael Keaton', 'Michael Douglas'],
+			correct: 3
+		}
+	]
 
 
 })();
 
 // UI CONTROLLER 
 var UIController = (function() {
-	var questions1, questions1Arr;
-
-	questionsLeo = {
-		1: document.getElementById('1'),
-		2: document.getElementById('2'),
-		3: document.getElementById('3'),
-		4: document.getElementById('4')
-	}
-
-	questionsLeoArr = [document.getElementById('1'), document.getElementById('2'), document.getElementById('3'), document.getElementById('4')];
-	return {
-		getInput: function(question, arr) {
-			if (question === 'question-1') {
-				arr.forEach(function(el) {
-					if (el.checked) {
-						return el.id
-					};
-				});
-			};
-				
-		}
-	};
-
+	
 })();
 
 var contoller = (function(dataCtrl, UICtrl) {
@@ -43,7 +41,7 @@ var contoller = (function(dataCtrl, UICtrl) {
 
 	var nextQuestion = function() {
 		// 1. Get checked input
-		UICtrl.getInput();
+		
 		// 2. Store answer in data structure
 
 		// 2. Change to the next question
