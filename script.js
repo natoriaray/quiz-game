@@ -24,7 +24,7 @@ var dataController = (function() {
 		{
 			number: 3,
 			question: 'Who played the first Batman in a movie?',
-			choices: ['Michael Caine', 'Michael Jacskson', 'Michael Keaton', 'Michael Douglas'],
+			choices: ['Michael Caine', 'Michael Jackson', 'Michael Keaton', 'Michael Douglas'],
 			correct: 3
 		}
 	]
@@ -56,19 +56,20 @@ var UIController = (function(dataCtrl) {
 
 	return {
 		displayQuestion: function(num) {
+			var ques;
 
-			console.log(num)
+			DOMStrings.questionText.textContent = questions[num].question;
 
+			for (var i = 0; i < questions[num].choices.length; i++) {
+				document.getElementById('label-' + i).textContent = questions[num].choices[i];
+			}
 
-			//var text = document.createTextNode(questions[0].question);
-			//DOMStrings.questionText.appendChild(text);
-
-		
-
+	
 		},
 
 		displayPrevBtn: function() {
 			DOMStrings.prevBtn.style.display = 'inline';
+			
 		},
 
 		hidePrevBtn: function() {
