@@ -3,26 +3,22 @@ var dataController = (function() {
 	
 	var questions = [
 		{
-			number: 0,
 			question: 'What was Leonardo DiCaprio\'s first movie?',
 			choices: ['Titanic', 'Critters 3', 'What\s Eating Gilbert Grape', 'Romeo + Juliet'],
 			correct: 2
 
 		},
 		{
-			number: 1,
 			question: 'Who starred in the movie Fight Club?',
 			choices: ['Jared Leto', 'Johnny Depp', 'Brad Pitt', 'Edward Norton'],
 			correct: 4
 		},
 		{
-			number: 2,
 			question: 'How many infinity stones are there in the Marvel universe?',
 			choices: [5, 4, 8, 6],
 			correct: 4
 		},
 		{
-			number: 3,
 			question: 'Who played the first Batman in a movie?',
 			choices: ['Michael Caine', 'Michael Jackson', 'Michael Keaton', 'Michael Douglas'],
 			correct: 3
@@ -49,14 +45,14 @@ var UIController = (function(dataCtrl) {
 		curQuestion: document.querySelector('.current-question'),
 		questionText: document.querySelector('.question-text'),
 		allAnswers: document.querySelector('.all-answers'),
-		prevBtn: document.querySelector('.prevBtn')
+		prevBtn: document.querySelector('.prevBtn'),
+		nextBtn: document.querySelector('.nextBtn')
 	};
 
 	var questions = dataCtrl.getQuestions();
 
 	return {
 		displayQuestion: function(num) {
-			var ques;
 
 			DOMStrings.questionText.textContent = questions[num].question;
 
@@ -84,6 +80,7 @@ var UIController = (function(dataCtrl) {
 })(dataController);
 
 var controller = (function(dataCtrl, UICtrl) {
+	var DOM = UICtrl.getDOMStrings();
 	var currentQ = 0;
 
 	var start = function() {
@@ -96,12 +93,12 @@ var controller = (function(dataCtrl, UICtrl) {
 	}
 
 	var eventListeners = function() {
-		document.querySelector('.nextBtn').addEventListener('click', nextQuestion);
-		
+		DOM.nextBtn.addEventListener('click', nextQuestion);
+		DOM.prevBtn.addEventListener('click', prevQuestion);
 	};
 
 	var questions = dataCtrl.getQuestions();
-	var DOM = UICtrl.getDOMStrings();
+	
 
 
 	var nextQuestion = function() {
@@ -117,7 +114,6 @@ var controller = (function(dataCtrl, UICtrl) {
 		// 4. Display previous button
 		if (!(currentQ === 0)) {
 			UICtrl.displayPrevBtn();
-			DOM.prevBtn.addEventListener('click', prevQuestion);
 		}
 	}
 
