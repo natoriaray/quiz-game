@@ -1,10 +1,11 @@
 // DATA CONTROLLER
 var dataController = (function() {
+	var questions, correctAns, userAns, arrays;
 	
-	var questions = [
+	questions = [
 		{
 			question: 'What was Leonardo DiCaprio\'s first movie?',
-			choices: ['Titanic', 'Critters 3', 'What\s Eating Gilbert Grape', 'Romeo + Juliet'],
+			choices: ['Titanic', 'Critters 3', 'What\'s Eating Gilbert Grape', 'Romeo + Juliet'],
 			correct: 2
 
 		},
@@ -23,11 +24,27 @@ var dataController = (function() {
 			choices: ['Michael Caine', 'Michael Jackson', 'Michael Keaton', 'Michael Douglas'],
 			correct: 3
 		}
-	]
+	];
+
+	arrays = {
+		correctAns: [2, 4, 4, 3],
+		userAns:[]
+	}
+	
+
 
 	return {
 		getQuestions: function() {
 			return questions;
+		},
+
+		storeAns: function() {
+			for (var i = 0; i < 4; i++) {
+				if (document.getElementById('input-' + i).checked) {
+					arrays.userAns.push(i);
+					console.log(arrays.userAns)
+				} 
+			}
 		},
 
 		test: function() {
@@ -40,6 +57,7 @@ var dataController = (function() {
 
 // UI CONTROLLER 
 var UIController = (function(dataCtrl) {
+	var questions;
 
 	var DOMStrings = {
 		curQuestion: document.querySelector('.current-question'),
@@ -49,7 +67,7 @@ var UIController = (function(dataCtrl) {
 		nextBtn: document.querySelector('.nextBtn')
 	};
 
-	var questions = dataCtrl.getQuestions();
+	questions = dataCtrl.getQuestions();
 
 	return {
 		displayQuestion: function(num) {
@@ -103,18 +121,16 @@ var controller = (function(dataCtrl, UICtrl) {
 
 	var nextQuestion = function() {
 
-		// 1. Get checked input
-		
-		// 2. Store answer in data structure
-
-		// 3. Change to the next question
+		// 1. Store answer in data structure
+		dataCtrl.storeAns();
+		// 2. Change to the next question
 		currentQ += 1
 		UICtrl.displayQuestion(currentQ);
 
-		// 4. Display previous button
+		// 3. Display previous button
 		if (!(currentQ === 0)) {
 			UICtrl.displayPrevBtn();
-		}
+		} 
 	}
 
 	var prevQuestion = function() {
