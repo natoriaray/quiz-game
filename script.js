@@ -89,6 +89,10 @@ var UIController = (function(dataCtrl) {
 		hidePrevBtn: function() {
 			DOMStrings.prevBtn.style.display = 'none';
 		},
+
+		displaySubBtn: function() {
+
+		},
 		
 		getDOMStrings: function() {
 			return DOMStrings;
@@ -125,17 +129,28 @@ var controller = (function(dataCtrl, UICtrl) {
 		dataCtrl.storeAns();
 		// 2. Change to the next question
 		currentQ += 1
-		UICtrl.displayQuestion(currentQ);
-
+		if (currentQ < 4) {
+			UICtrl.displayQuestion(currentQ);
+		}
 		// 3. Display previous button
-		if (!(currentQ === 0)) {
+		if (currentQ > 0) {
 			UICtrl.displayPrevBtn();
 		} 
+		// 3. Display submit button if on the last question
+		UICtrl.displaySubBtn();
 	}
 
 	var prevQuestion = function() {
 		currentQ -= 1;
-		console.log(currentQ)
+		
+		//1. Display previous button
+		if (currentQ > -1) {
+			UICtrl.displayQuestion(currentQ);
+		}
+		//2. If using this previous button, hide previous button when going back to first question
+		if (currentQ === 0){
+			UICtrl.hidePrevBtn();
+		}
 	};
 
 	return{
