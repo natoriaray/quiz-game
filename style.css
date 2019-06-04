@@ -55,7 +55,6 @@ p {
 button {
   height: 35px;
   width: 80px;
-  
   background-color: rgb(97, 125, 240);
   cursor: pointer;
   border: none;
@@ -64,7 +63,7 @@ button {
 }
 
 .prevBtn {
-  float: ;
+  display: none;
 }
 
 .subBtn {

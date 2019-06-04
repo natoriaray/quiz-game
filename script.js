@@ -91,7 +91,11 @@ var UIController = (function(dataCtrl) {
 		},
 
 		displaySubBtn: function() {
+			var submit = document.querySelector('.subBtn');
 
+			var parent = document.querySelector('.buttons').childNodes[2];
+			parent.replaceChild(submit, parent.childNodes[0])
+			submit.style.display = 'inline';
 		},
 		
 		getDOMStrings: function() {
@@ -137,6 +141,7 @@ var controller = (function(dataCtrl, UICtrl) {
 			UICtrl.displayPrevBtn();
 		} 
 		// 3. Display submit button if on the last question
+		if (currentQ === 3)
 		UICtrl.displaySubBtn();
 	}
 
