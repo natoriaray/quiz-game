@@ -6,29 +6,29 @@ var dataController = (function() {
 		{
 			question: 'What was Leonardo DiCaprio\'s first movie?',
 			choices: ['Titanic', 'Critters 3', 'What\'s Eating Gilbert Grape', 'Romeo + Juliet'],
-			correct: 2
+			correct: 1
 
 		},
 		{
 			question: 'Who starred in the movie Fight Club?',
 			choices: ['Jared Leto', 'Johnny Depp', 'Brad Pitt', 'Edward Norton'],
-			correct: 4
+			correct: 3
 		},
 		{
 			question: 'How many infinity stones are there in the Marvel universe?',
 			choices: [5, 4, 8, 6],
-			correct: 4
+			correct: 3
 		},
 		{
 			question: 'Who played the first Batman in a movie?',
 			choices: ['Michael Caine', 'Michael Jackson', 'Michael Keaton', 'Michael Douglas'],
-			correct: 3
+			correct: 2
 		}
 	];
 
 	arrays = {
-		correctAns: [2, 4, 4, 3],
-		userAns:[]
+		correctAnsArr: [1, 3, 3, 2],
+		userAnsArr:[]
 	}
 	
 
@@ -38,11 +38,15 @@ var dataController = (function() {
 			return questions;
 		},
 
+		getArrays: function() {
+			return arrays;
+		},
+
 		storeAns: function() {
 			for (var i = 0; i < 4; i++) {
 				if (document.getElementById('input-' + i).checked) {
-					arrays.userAns.push(i);
-					console.log(arrays.userAns)
+					arrays.userAnsArr.push(i);
+					console.log(arrays.userAnsArr)
 				} 
 			}
 		},
@@ -57,7 +61,7 @@ var dataController = (function() {
 
 // UI CONTROLLER 
 var UIController = (function(dataCtrl) {
-	var questions;
+	var questions, arr;
 
 	var DOMStrings = {
 		curQuestion: document.querySelector('.current-question'),
@@ -69,6 +73,7 @@ var UIController = (function(dataCtrl) {
 	};
 
 	questions = dataCtrl.getQuestions();
+	arr = dataCtrl.getArrays();
 
 	return {
 		displayQuestion: function(num) {
@@ -80,6 +85,14 @@ var UIController = (function(dataCtrl) {
 			}
 
 	
+		},
+
+		displayUserAns: function(num) {
+
+			if (num === 0) {
+				document.getElementById('input-' + CHECKEDANSWER);
+			}
+
 		},
 
 		displayPrevBtn: function() {
@@ -131,11 +144,11 @@ var controller = (function(dataCtrl, UICtrl) {
 	var questions = dataCtrl.getQuestions();
 	
 
-
 	var nextQuestion = function() {
 
 		// 1. Store answer in data structure
 		dataCtrl.storeAns();
+
 		// 2. Change to the next question
 		currentQ += 1
 		if (currentQ < 4) {
