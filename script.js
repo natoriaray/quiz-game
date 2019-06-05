@@ -64,7 +64,8 @@ var UIController = (function(dataCtrl) {
 		questionText: document.querySelector('.question-text'),
 		allAnswers: document.querySelector('.all-answers'),
 		prevBtn: document.querySelector('.prevBtn'),
-		nextBtn: document.querySelector('.nextBtn')
+		nextBtn: document.querySelector('.nextBtn'),
+		subBtn: document.querySelector('.subBtn')
 	};
 
 	questions = dataCtrl.getQuestions();
@@ -91,11 +92,15 @@ var UIController = (function(dataCtrl) {
 		},
 
 		displaySubBtn: function() {
-			var submit = document.querySelector('.subBtn');
+			DOMStrings.nextBtn.style.display = 'none';
+			DOMStrings.subBtn.style.display = 'inline';
 
-			var parent = document.querySelector('.buttons').childNodes[2];
-			parent.replaceChild(submit, parent.childNodes[0])
-			submit.style.display = 'inline';
+			
+		},
+
+		hideSubBtn: function() {
+			DOMStrings.subBtn.style.display = 'none';
+			DOMStrings.nextBtn.style.display = 'inline';
 		},
 		
 		getDOMStrings: function() {
@@ -155,6 +160,11 @@ var controller = (function(dataCtrl, UICtrl) {
 		//2. If using this previous button, hide previous button when going back to first question
 		if (currentQ === 0){
 			UICtrl.hidePrevBtn();
+		}
+
+		//3. When going back to previous questions display the next button again and hide the submit button
+		if (!(currentQ === 3)) {
+			UICtrl.hideSubBtn();
 		}
 	};
 
