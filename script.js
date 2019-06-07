@@ -89,10 +89,9 @@ var UIController = (function(dataCtrl) {
 
 			for (var i = 0; i < 4; i++) {
 				if (num === i) {
-					document.getElementById('input-' + arr.userAnsArr[num]).checked;
+					document.getElementById('input-2').checked = true;
 				}
 			}
-
 		},
 
 		clearUserAns: function() {
@@ -154,23 +153,23 @@ var controller = (function(dataCtrl, UICtrl) {
 		// 1. Store answer in data structure
 		dataCtrl.storeAns();
 
-		// 2. Uncheck radios
+		// 2. If user already selected a question for an answer display it
+		UICtrl.displayUserAns(currentQ);
+
+		// 3. Uncheck radios
 		UICtrl.clearUserAns();
 		
-		// 3. Change to the next question
+		// 4. Change to the next question
 		currentQ += 1
 		if (currentQ < 4) {
 			UICtrl.displayQuestion(currentQ);
 		}
 
-		// 4. If user already selected a question for an answer display it
-		//UICtrl.displayUserAns();
-
-		// 3. Display previous button
+		// 5. Display previous button
 		if (currentQ > 0) {
 			UICtrl.displayPrevBtn();
 		} 
-		// 3. Display submit button if on the last question
+		// 6. Display submit button if on the last question
 		if (currentQ === 3)
 		UICtrl.displaySubBtn();
 	}
@@ -187,7 +186,10 @@ var controller = (function(dataCtrl, UICtrl) {
 			UICtrl.hidePrevBtn();
 		}
 
-		//3. When going back to previous questions display the next button again and hide the submit button
+		// 3. If user already selected a question for an answer display it
+		UICtrl.displayUserAns(0);
+
+		//4. When going back to previous questions display the next button again and hide the submit button
 		if (!(currentQ === 3)) {
 			UICtrl.hideSubBtn();
 		}
