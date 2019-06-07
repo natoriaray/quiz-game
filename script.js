@@ -42,13 +42,16 @@ var dataController = (function() {
 			return arrays;
 		},
 
-		storeAns: function() {
-			for (var i = 0; i < 4; i++) {
+		storeAns: function(num) {
+			if (!(arrays.userAnsArr[num])) {
+				for (var i = 0; i < 4; i++) {
 				if (document.getElementById('input-' + i).checked) {
 					arrays.userAnsArr.push(i);
 					console.log(arrays.userAnsArr);
 				} 
 			}
+			}
+			
 		},
 
 		test: function() {
@@ -89,15 +92,19 @@ var UIController = (function(dataCtrl) {
 
 			for (var i = 0; i < 4; i++) {
 				if (num === i) {
-					document.getElementById('input-2').checked = true;
+					document.getElementById('input-' + arr.userAnsArr[num]).checked = true;
 				}
 			}
 		},
 
-		clearUserAns: function() {
+		clearUserAns: function(num) {
 			var inp = document.querySelectorAll('input');
-			for (var i = 0; i < inp.length; i++) {
-				inp[i].checked = false;
+
+			if (!(arr.userAnsArr[num])) {
+				for (var i = 0; i < inp.length; i++) {
+					inp[i].checked = false;
+				}
+				
 			}
 		},
 
@@ -135,8 +142,6 @@ var controller = (function(dataCtrl, UICtrl) {
 		window.onload = function() {
 			UICtrl.displayQuestion(currentQ);
 			UICtrl.hidePrevBtn();
-
-
 		}
 	}
 
@@ -151,13 +156,13 @@ var controller = (function(dataCtrl, UICtrl) {
 	var nextQuestion = function() {
 
 		// 1. Store answer in data structure
-		dataCtrl.storeAns();
+		dataCtrl.storeAns(currentQ);
 
 		// 2. If user already selected a question for an answer display it
 		UICtrl.displayUserAns(currentQ);
 
 		// 3. Uncheck radios
-		UICtrl.clearUserAns();
+		UICtrl.clearUserAns(currentQ);
 		
 		// 4. Change to the next question
 		currentQ += 1
@@ -187,7 +192,7 @@ var controller = (function(dataCtrl, UICtrl) {
 		}
 
 		// 3. If user already selected a question for an answer display it
-		UICtrl.displayUserAns(0);
+		UICtrl.displayUserAns(currentQ);
 
 		//4. When going back to previous questions display the next button again and hide the submit button
 		if (!(currentQ === 3)) {
