@@ -46,7 +46,7 @@ var dataController = (function() {
 			for (var i = 0; i < 4; i++) {
 				if (document.getElementById('input-' + i).checked) {
 					arrays.userAnsArr.push(i);
-					console.log(arrays.userAnsArr)
+					console.log(arrays.userAnsArr);
 				} 
 			}
 		},
@@ -83,16 +83,20 @@ var UIController = (function(dataCtrl) {
 			for (var i = 0; i < questions[num].choices.length; i++) {
 				document.getElementById('label-' + i).textContent = questions[num].choices[i];
 			}
-
-	
 		},
 
 		displayUserAns: function(num) {
 
-			if (num === 0) {
-				document.getElementById('input-' + CHECKEDANSWER);
+			for (var i = 0; i < 4; i++) {
+				if (num === i) {
+					document.getElementById('input-' + arr.userAnsArr[num]).checked;
+				}
 			}
 
+		},
+
+		clearUserAns: function() {
+			document.querySelector('input').checked = false; 
 		},
 
 		displayPrevBtn: function() {
@@ -107,8 +111,6 @@ var UIController = (function(dataCtrl) {
 		displaySubBtn: function() {
 			DOMStrings.nextBtn.style.display = 'none';
 			DOMStrings.subBtn.style.display = 'inline';
-
-			
 		},
 
 		hideSubBtn: function() {
@@ -142,13 +144,16 @@ var controller = (function(dataCtrl, UICtrl) {
 	};
 
 	var questions = dataCtrl.getQuestions();
-	
+	var ans;
 
 	var nextQuestion = function() {
 
 		// 1. Store answer in data structure
 		dataCtrl.storeAns();
 
+		// 2. Uncheck radios
+		UICtrl.clearUserAns();
+		
 		// 2. Change to the next question
 		currentQ += 1
 		if (currentQ < 4) {
