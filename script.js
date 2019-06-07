@@ -96,7 +96,10 @@ var UIController = (function(dataCtrl) {
 		},
 
 		clearUserAns: function() {
-			document.querySelector('input').checked = false; 
+			var inp = document.querySelectorAll('input');
+			for (var i = 0; i < inp.length; i++) {
+				inp[i].checked = false;
+			}
 		},
 
 		displayPrevBtn: function() {
@@ -154,11 +157,15 @@ var controller = (function(dataCtrl, UICtrl) {
 		// 2. Uncheck radios
 		UICtrl.clearUserAns();
 		
-		// 2. Change to the next question
+		// 3. Change to the next question
 		currentQ += 1
 		if (currentQ < 4) {
 			UICtrl.displayQuestion(currentQ);
 		}
+
+		// 4. If user already selected a question for an answer display it
+		//UICtrl.displayUserAns();
+
 		// 3. Display previous button
 		if (currentQ > 0) {
 			UICtrl.displayPrevBtn();
