@@ -103,18 +103,11 @@ var UIController = (function(dataCtrl) {
 
 			if (arr.userAnsArr[num + 1]) {
 				document.getElementById('input-' + arr.userAnsArr[num + 1]).checked = true;
-				//for (var i = 0; i < inp.length; i++) {
-				//	inp[i].checked = false;
-			//	} 
 			} else {
 				for (var i = 0; i < inp.length; i++) {
 					inp[i].checked = false;
 				}
 			} 
-
-			//else if (arr.userAnsArr[num]) {
-				//	arr.userAnsArr[num].checked = true;
-				//}
 		},
 
 		displayPrevBtn: function() {
