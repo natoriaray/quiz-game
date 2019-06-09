@@ -93,6 +93,7 @@ var UIController = (function(dataCtrl) {
 			for (var i = 0; i < 4; i++) {
 				if (num === i) {
 					document.getElementById('input-' + arr.userAnsArr[num]).checked = true;
+					break;
 				}
 			}
 		},
@@ -100,12 +101,20 @@ var UIController = (function(dataCtrl) {
 		clearUserAns: function(num) {
 			var inp = document.querySelectorAll('input');
 
-			if (!(arr.userAnsArr[num])) {
+			if (arr.userAnsArr[num + 1]) {
+				document.getElementById('input-' + arr.userAnsArr[num + 1]).checked = true;
+				//for (var i = 0; i < inp.length; i++) {
+				//	inp[i].checked = false;
+			//	} 
+			} else {
 				for (var i = 0; i < inp.length; i++) {
 					inp[i].checked = false;
 				}
-				
-			}
+			} 
+
+			//else if (arr.userAnsArr[num]) {
+				//	arr.userAnsArr[num].checked = true;
+				//}
 		},
 
 		displayPrevBtn: function() {
