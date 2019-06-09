@@ -45,11 +45,11 @@ var dataController = (function() {
 		storeAns: function(num) {
 			if (!(arrays.userAnsArr[num])) {
 				for (var i = 0; i < 4; i++) {
-				if (document.getElementById('input-' + i).checked) {
-					arrays.userAnsArr.push(i);
-					console.log(arrays.userAnsArr);
-				} 
-			}
+					if (document.getElementById('input-' + i).checked) {
+						arrays.userAnsArr.push(i);
+						console.log(arrays.userAnsArr);
+					} 
+				}
 			}
 			
 		},
@@ -108,6 +108,10 @@ var UIController = (function(dataCtrl) {
 					inp[i].checked = false;
 				}
 			} 
+		},
+
+		changeAns: function() {
+
 		},
 
 		displayPrevBtn: function() {
