@@ -106,6 +106,12 @@ var UIController = (function(dataCtrl) {
 			}
 		},
 
+		compareArr: function(arr1, arr2) {
+				arr1.forEach(function(cur) {
+
+				})
+		},
+
 		displayPrevBtn: function() {
 			DOMStrings.prevBtn.style.display = 'inline';
 		},
@@ -145,6 +151,7 @@ var controller = (function(dataCtrl, UICtrl) {
 	var eventListeners = function() {
 		DOM.nextBtn.addEventListener('click', nextQuestion);
 		DOM.prevBtn.addEventListener('click', prevQuestion);
+		DOM.subBtn.addEventListener('click', submitAns)
 	};
 
 	var questions = dataCtrl.getQuestions();
@@ -196,6 +203,15 @@ var controller = (function(dataCtrl, UICtrl) {
 		if (!(currentQ === 3)) {
 			UICtrl.hideSubBtn();
 		}
+	};
+
+	var submitAns = function() {
+		//1. Store last answer in data structure array
+		currentQ = 3
+		dataCtrl.storeAns(3);
+
+		//2. Compare user answer array with the correct answer arr
+		UICtrl.compareArr();
 	};
 
 	return{
