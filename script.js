@@ -1,7 +1,7 @@
 // DATA CONTROLLER
 var dataController = (function() {
 	var questions, correctAns, userAns, arrays;
-	
+
 	questions = [
 		{
 			question: 'What was Leonardo DiCaprio\'s first movie?',
@@ -30,7 +30,7 @@ var dataController = (function() {
 		correctAnsArr: [1, 3, 3, 2],
 		userAnsArr:[]
 	}
-	
+
 
 
 	return {
@@ -43,15 +43,15 @@ var dataController = (function() {
 		},
 
 		storeAns: function(num) {
-			if (!(arrays.userAnsArr[num])) {
+			if (!(arrays.userAnsArr[num]) || arrays.userAnsArr[num]) {
 				for (var i = 0; i < 4; i++) {
 					if (document.getElementById('input-' + i).checked) {
-						arrays.userAnsArr.push(i);
+						arrays.userAnsArr[num] = i;
 						console.log(arrays.userAnsArr);
-					} 
+					}
 				}
 			}
-			
+
 		},
 
 		test: function() {
@@ -62,7 +62,7 @@ var dataController = (function() {
 
 })();
 
-// UI CONTROLLER 
+// UI CONTROLLER
 var UIController = (function(dataCtrl) {
 	var questions, arr;
 
@@ -93,7 +93,7 @@ var UIController = (function(dataCtrl) {
 			for (var i = 0; i < 4; i++) {
 				if (num === i) {
 					document.getElementById('input-' + arr.userAnsArr[num]).checked = true;
-					break;
+					//break;
 				}
 			}
 		},
@@ -101,22 +101,18 @@ var UIController = (function(dataCtrl) {
 		clearUserAns: function(num) {
 			var inp = document.querySelectorAll('input');
 
-			if (arr.userAnsArr[num + 1]) {
+			if (arr.userAnsArr[num + 1] >= 0) {
 				document.getElementById('input-' + arr.userAnsArr[num + 1]).checked = true;
 			} else {
 				for (var i = 0; i < inp.length; i++) {
 					inp[i].checked = false;
 				}
-			} 
-		},
-
-		changeAns: function() {
-
+			}
 		},
 
 		displayPrevBtn: function() {
 			DOMStrings.prevBtn.style.display = 'inline';
-			
+
 		},
 
 		hidePrevBtn: function() {
@@ -132,12 +128,12 @@ var UIController = (function(dataCtrl) {
 			DOMStrings.subBtn.style.display = 'none';
 			DOMStrings.nextBtn.style.display = 'inline';
 		},
-		
+
 		getDOMStrings: function() {
 			return DOMStrings;
 		}
 	}
-	
+
 })(dataController);
 
 var controller = (function(dataCtrl, UICtrl) {
@@ -157,7 +153,6 @@ var controller = (function(dataCtrl, UICtrl) {
 	};
 
 	var questions = dataCtrl.getQuestions();
-	var ans;
 
 	var nextQuestion = function() {
 
@@ -169,7 +164,7 @@ var controller = (function(dataCtrl, UICtrl) {
 
 		// 3. Uncheck radios
 		UICtrl.clearUserAns(currentQ);
-		
+
 		// 4. Change to the next question
 		currentQ += 1
 		if (currentQ < 4) {
@@ -179,7 +174,7 @@ var controller = (function(dataCtrl, UICtrl) {
 		// 5. Display previous button
 		if (currentQ > 0) {
 			UICtrl.displayPrevBtn();
-		} 
+		}
 		// 6. Display submit button if on the last question
 		if (currentQ === 3)
 		UICtrl.displaySubBtn();
@@ -187,7 +182,7 @@ var controller = (function(dataCtrl, UICtrl) {
 
 	var prevQuestion = function() {
 		currentQ -= 1;
-		
+
 		//1. Display previous button
 		if (currentQ > -1) {
 			UICtrl.displayQuestion(currentQ);
@@ -216,12 +211,3 @@ var controller = (function(dataCtrl, UICtrl) {
 })(dataController, UIController);
 
 controller.init();
-
-
-
-
-
-
-
-
-
