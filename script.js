@@ -32,7 +32,6 @@ var dataController = (function() {
 	}
 
 
-
 	return {
 		getQuestions: function() {
 			return questions;
@@ -43,15 +42,12 @@ var dataController = (function() {
 		},
 
 		storeAns: function(num) {
-			if (!(arrays.userAnsArr[num]) || arrays.userAnsArr[num]) {
 				for (var i = 0; i < 4; i++) {
 					if (document.getElementById('input-' + i).checked) {
 						arrays.userAnsArr[num] = i;
 						console.log(arrays.userAnsArr);
 					}
 				}
-			}
-
 		},
 
 		test: function() {
@@ -189,7 +185,7 @@ var controller = (function(dataCtrl, UICtrl) {
 			UICtrl.displayQuestion(currentQ);
 		}
 		//3. If using this previous button, hide previous button when going back to first question
-		if (currentQ === 0){
+		if (currentQ === 0) {
 			UICtrl.hidePrevBtn();
 		}
 
