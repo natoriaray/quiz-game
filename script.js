@@ -112,7 +112,6 @@ var UIController = (function(dataCtrl) {
 
 		displayPrevBtn: function() {
 			DOMStrings.prevBtn.style.display = 'inline';
-
 		},
 
 		hidePrevBtn: function() {
@@ -181,21 +180,23 @@ var controller = (function(dataCtrl, UICtrl) {
 	}
 
 	var prevQuestion = function() {
+		// 1. Store ans in data structure if they click an answer and then click the previous button
+		dataCtrl.storeAns(currentQ);
 		currentQ -= 1;
 
-		//1. Display previous button
+		//2. Display previous button
 		if (currentQ > -1) {
 			UICtrl.displayQuestion(currentQ);
 		}
-		//2. If using this previous button, hide previous button when going back to first question
+		//3. If using this previous button, hide previous button when going back to first question
 		if (currentQ === 0){
 			UICtrl.hidePrevBtn();
 		}
 
-		// 3. If user already selected a question for an answer display it
+		//4. If user already selected a question for an answer display it
 		UICtrl.displayUserAns(currentQ);
 
-		//4. When going back to previous questions display the next button again and hide the submit button
+		//5. When going back to previous questions display the next button again and hide the submit button
 		if (!(currentQ === 3)) {
 			UICtrl.hideSubBtn();
 		}
