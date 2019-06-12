@@ -50,6 +50,20 @@ var dataController = (function() {
 				}
 		},
 
+		compareArr: function() {
+			var correct = 0;
+			var incorrect = 0;
+			for (var i = 0; i < 4; i++) {
+				if (arrays.userAnsArr[i] === arrays.correctAnsArr[i]) {
+					correct += 1;
+				} else {
+					incorrect += 1;
+				}
+			}
+			console.log(correct);
+			console.log(incorrect);
+		},
+
 		test: function() {
 			console.log('this is is working')
 		}
@@ -87,7 +101,7 @@ var UIController = (function(dataCtrl) {
 		displayUserAns: function(num) {
 
 			for (var i = 0; i < 4; i++) {
-				if (arr.userAnsArr[num]) {
+				if (arr.userAnsArr[num] >= 0) {
 					document.getElementById('input-' + arr.userAnsArr[num]).checked = true;
 					//break;
 				}
@@ -104,20 +118,6 @@ var UIController = (function(dataCtrl) {
 					inp[i].checked = false;
 				}
 			}
-		},
-
-		compareArr: function() {
-			var correct = 0;
-			var incorrect = 0;
-			for (var i = 0; i < 4; i++) {
-				if (arr.userAnsArr[i] === arr.correctAnsArr[i]) {
-					correct += 1;
-				} else {
-					incorrect += 1;
-				}
-			}
-			console.log(correct);
-			console.log(incorrect);
 		},
 
 		displayPrevBtn: function() {
@@ -220,7 +220,7 @@ var controller = (function(dataCtrl, UICtrl) {
 		dataCtrl.storeAns(3);
 
 		//2. Compare user answer array with the correct answer arr
-		UICtrl.compareArr();
+		dataCtrl.compareArr();
 	};
 
 	return{
