@@ -87,7 +87,7 @@ var UIController = (function(dataCtrl) {
 		displayUserAns: function(num) {
 
 			for (var i = 0; i < 4; i++) {
-				if (num === i) {
+				if (arr.userAnsArr[num]) {
 					document.getElementById('input-' + arr.userAnsArr[num]).checked = true;
 					//break;
 				}
@@ -155,13 +155,14 @@ var controller = (function(dataCtrl, UICtrl) {
 	};
 
 	var questions = dataCtrl.getQuestions();
+	var arrays = dataCtrl.getArrays();
 
 	var nextQuestion = function() {
 
 		// 1. Store answer in data structure
 		dataCtrl.storeAns(currentQ);
 
-		// 2. If user already selected a question for an answer display it
+		// 2. If user already selected an answer for a question display it
 		UICtrl.displayUserAns(currentQ);
 
 		// 3. Uncheck radios
@@ -187,7 +188,7 @@ var controller = (function(dataCtrl, UICtrl) {
 		dataCtrl.storeAns(currentQ);
 		currentQ -= 1;
 
-		//2. Display previous button
+		//2. Display question
 		if (currentQ > -1) {
 			UICtrl.displayQuestion(currentQ);
 		}
