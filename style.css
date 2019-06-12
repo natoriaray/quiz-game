@@ -69,3 +69,22 @@ button {
 .subBtn {
   display: none;
 }
+
+.result-box {
+  visibility: hidden;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  height: 420px;
+  width: 500px;
+  margin: 15px;
+  border-radius: 25px;
+  background-color: rgba(255, 101, 92, 0.3);
+}
+
+.result-box p {
+  display: flex;
+  justify-content: center;
+  font-size: 25px;
+}
+
