@@ -1,6 +1,6 @@
 // DATA CONTROLLER
 var dataController = (function() {
-	var questions, correctAns, userAns, arrays;
+	var questions, correctAns, userAns, arrays, correct;
 
 	questions = [
 		{
@@ -31,6 +31,7 @@ var dataController = (function() {
 		userAnsArr:[]
 	}
 
+	correct = 0
 
 	return {
 		getQuestions: function() {
@@ -50,18 +51,13 @@ var dataController = (function() {
 				}
 		},
 
-		compareArr: function() {
-			var correct = 0;
-			var incorrect = 0;
+		getCorrect: function() {
 			for (var i = 0; i < 4; i++) {
 				if (arrays.userAnsArr[i] === arrays.correctAnsArr[i]) {
 					correct += 1;
-				} else {
-					incorrect += 1;
-				}
+				} 
 			}
-			console.log(correct);
-			console.log(incorrect);
+			return correct;
 		},
 
 		test: function() {
@@ -82,7 +78,8 @@ var UIController = (function(dataCtrl) {
 		allAnswers: document.querySelector('.all-answers'),
 		prevBtn: document.querySelector('.prevBtn'),
 		nextBtn: document.querySelector('.nextBtn'),
-		subBtn: document.querySelector('.subBtn')
+		subBtn: document.querySelector('.subBtn'),
+		resultBox: document.querySelector('.result-box')
 	};
 
 	questions = dataCtrl.getQuestions();
@@ -136,6 +133,26 @@ var UIController = (function(dataCtrl) {
 		hideSubBtn: function() {
 			DOMStrings.subBtn.style.display = 'none';
 			DOMStrings.nextBtn.style.display = 'inline';
+		},
+
+		displayResults: function(correctNum) {
+			var html, newHTML;
+
+			//1. Create HTML string with placeholder text
+			if (correctNum > 1) {
+				html = '<p>You got %num% questions right! Way to go!</p>';
+			} else {
+				html = '<p>You got %num% question right! Way to go!</p>';
+			}
+			
+			//2. Replace placeholder text with the correct number
+			newHTML = html.replace('%num%', correctNum);
+
+			//3. Insert new HTML into the DOM
+			DOMStrings.resultBox.insertAdjacentHTML('beforeend', newHTML)
+
+			//4. Make result box visible
+			DOMStrings.resultBox.style.visibility = 'visible';
 		},
 
 		getDOMStrings: function() {
@@ -208,7 +225,7 @@ var controller = (function(dataCtrl, UICtrl) {
 		//4. If user already selected a question for an answer display it
 		UICtrl.displayUserAns(currentQ);
 
-		//5. When going back to previous questions display the next button again and hide the submit button
+		//5. When going back to previous questions display the next button again and hide the submit button if on last question
 		if (!(currentQ === 3)) {
 			UICtrl.hideSubBtn();
 		}
@@ -220,7 +237,10 @@ var controller = (function(dataCtrl, UICtrl) {
 		dataCtrl.storeAns(3);
 
 		//2. Compare user answer array with the correct answer arr
-		dataCtrl.compareArr();
+		var correct = dataCtrl.getCorrect();
+
+		//3. Display results
+		UICtrl.displayResults(correct);
 	};
 
 	return{
