@@ -106,10 +106,18 @@ var UIController = (function(dataCtrl) {
 			}
 		},
 
-		compareArr: function(arr1, arr2) {
-				arr1.forEach(function(cur) {
-
-				})
+		compareArr: function() {
+			var correct = 0;
+			var incorrect = 0;
+			for (var i = 0; i < 4; i++) {
+				if (arr.userAnsArr[i] === arr.correctAnsArr[i]) {
+					correct += 1;
+				} else {
+					incorrect += 1;
+				}
+			}
+			console.log(correct);
+			console.log(incorrect);
 		},
 
 		displayPrevBtn: function() {
