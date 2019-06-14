@@ -79,7 +79,7 @@ var UIController = (function(dataCtrl) {
 		prevBtn: document.querySelector('.prevBtn'),
 		nextBtn: document.querySelector('.nextBtn'),
 		subBtn: document.querySelector('.subBtn'),
-		resultBox: document.querySelector('.result-box')
+		resultBox: document.querySelector('.result-box'),
 	};
 
 	questions = dataCtrl.getQuestions();
@@ -149,10 +149,15 @@ var UIController = (function(dataCtrl) {
 			newHTML = html.replace('%num%', correctNum);
 
 			//3. Insert new HTML into the DOM
-			DOMStrings.resultBox.insertAdjacentHTML('beforeend', newHTML)
+			DOMStrings.resultBox.insertAdjacentHTML('beforeend', newHTML);
 
 			//4. Make result box visible
 			DOMStrings.resultBox.style.visibility = 'visible';
+		},
+
+		changeQuesNum: function(num) {
+			DOMStrings.curQuestion.textContent = 'Question ' + (num + 1) + ' of 4';
+
 		},
 
 		getDOMStrings: function() {
@@ -169,6 +174,7 @@ var controller = (function(dataCtrl, UICtrl) {
 	var start = function() {
 		window.onload = function() {
 			UICtrl.displayQuestion(currentQ);
+			UICtrl.changeQuesNum(currentQ);
 			UICtrl.hidePrevBtn();
 		}
 	}
@@ -198,6 +204,9 @@ var controller = (function(dataCtrl, UICtrl) {
 		if (currentQ < 4) {
 			UICtrl.displayQuestion(currentQ);
 		}
+
+		//5. Change the number of the question on UI
+		UICtrl.changeQuesNum(currentQ);
 
 		// 5. Display previous button
 		if (currentQ > 0) {
