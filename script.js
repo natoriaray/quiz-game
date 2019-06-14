@@ -80,6 +80,7 @@ var UIController = (function(dataCtrl) {
 		nextBtn: document.querySelector('.nextBtn'),
 		subBtn: document.querySelector('.subBtn'),
 		resultBox: document.querySelector('.result-box'),
+		quizBox: document.querySelector('.quiz-box')
 	};
 
 	questions = dataCtrl.getQuestions();
@@ -141,6 +142,8 @@ var UIController = (function(dataCtrl) {
 			//1. Create HTML string with placeholder text
 			if (correctNum > 1) {
 				html = '<p>You got %num% questions right! Way to go!</p>';
+			} else if (correctNum === 0) {
+				html = '<p>You didn\'t get any questions right.</p>'
 			} else {
 				html = '<p>You got %num% question right! Way to go!</p>';
 			}
@@ -152,12 +155,21 @@ var UIController = (function(dataCtrl) {
 			DOMStrings.resultBox.insertAdjacentHTML('beforeend', newHTML);
 
 			//4. Make result box visible
-			DOMStrings.resultBox.style.visibility = 'visible';
+			DOMStrings.resultBox.style.display = 'flex';
 		},
 
 		changeQuesNum: function(num) {
 			DOMStrings.curQuestion.textContent = 'Question ' + (num + 1) + ' of 4';
 
+		},
+
+		playAgain: function() {
+			// Insert new HTML into the DOM
+			DOMStrings.quizBox.innerHTML = '<button class="playAgain" type="button" name="again">Play Again</button>';
+
+			//Change formmating of button
+			DOMStrings.quizBox.style.justifyContent = 'center';
+			DOMStrings.quizBox.style.alignItems = 'center';
 		},
 
 		getDOMStrings: function() {
@@ -208,11 +220,11 @@ var controller = (function(dataCtrl, UICtrl) {
 		//5. Change the number of the question on UI
 		UICtrl.changeQuesNum(currentQ);
 
-		// 5. Display previous button
+		// 6. Display previous button
 		if (currentQ > 0) {
 			UICtrl.displayPrevBtn();
 		}
-		// 6. Display submit button if on the last question
+		// 7. Display submit button if on the last question
 		if (currentQ === 3)
 		UICtrl.displaySubBtn();
 	}
@@ -226,15 +238,19 @@ var controller = (function(dataCtrl, UICtrl) {
 		if (currentQ > -1) {
 			UICtrl.displayQuestion(currentQ);
 		}
-		//3. If using this previous button, hide previous button when going back to first question
+
+		//3. Change the number of the question on UI
+		UICtrl.changeQuesNum(currentQ);
+
+		//4. If using this previous button, hide previous button when going back to first question
 		if (currentQ === 0) {
 			UICtrl.hidePrevBtn();
 		}
 
-		//4. If user already selected a question for an answer display it
+		//5. If user already selected a question for an answer display it
 		UICtrl.displayUserAns(currentQ);
 
-		//5. When going back to previous questions display the next button again and hide the submit button if on last question
+		//6. When going back to previous questions display the next button again and hide the submit button if on last question
 		if (!(currentQ === 3)) {
 			UICtrl.hideSubBtn();
 		}
@@ -250,6 +266,9 @@ var controller = (function(dataCtrl, UICtrl) {
 
 		//3. Display results
 		UICtrl.displayResults(correct);
+
+		//4. Display play again button and remove all other children from the quiz-box
+		UICtrl.playAgain();
 	};
 
 	return{

@@ -70,9 +70,13 @@ button {
   display: none;
 }
 
+.playAgain {
+  height: 50px;
+  width: 100px;
+}
+
 .result-box {
-  visibility: hidden;
-  display: flex;
+  display: none;
   justify-content: center;
   flex-wrap: wrap;
   height: 420px;
@@ -87,4 +91,5 @@ button {
   justify-content: center;
   font-size: 25px;
 }
+
 
