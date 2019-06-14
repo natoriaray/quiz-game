@@ -80,7 +80,8 @@ var UIController = (function(dataCtrl) {
 		nextBtn: document.querySelector('.nextBtn'),
 		subBtn: document.querySelector('.subBtn'),
 		resultBox: document.querySelector('.result-box'),
-		quizBox: document.querySelector('.quiz-box')
+		quizBox: document.querySelector('.quiz-box'),
+		playAgain: document.querySelector('.playAgain')
 	};
 
 	questions = dataCtrl.getQuestions();
@@ -164,12 +165,18 @@ var UIController = (function(dataCtrl) {
 		},
 
 		playAgain: function() {
+
+			var button = document.createElement('button');
+			
+
 			// Insert new HTML into the DOM
 			DOMStrings.quizBox.innerHTML = '<button class="playAgain" type="button" name="again">Play Again</button>';
 
+			//Display button
+			DOMStrings.playAgain.style.display = 'inline';
 			//Change formmating of button
-			DOMStrings.quizBox.style.justifyContent = 'center';
-			DOMStrings.quizBox.style.alignItems = 'center';
+			//DOMStrings.quizBox.style.justifyContent = 'center';
+			//DOMStrings.quizBox.style.alignItems = 'center';
 		},
 
 		getDOMStrings: function() {
@@ -194,7 +201,7 @@ var controller = (function(dataCtrl, UICtrl) {
 	var eventListeners = function() {
 		DOM.nextBtn.addEventListener('click', nextQuestion);
 		DOM.prevBtn.addEventListener('click', prevQuestion);
-		DOM.subBtn.addEventListener('click', submitAns)
+		DOM.subBtn.addEventListener('click', submitAns);
 	};
 
 	var questions = dataCtrl.getQuestions();
@@ -269,6 +276,8 @@ var controller = (function(dataCtrl, UICtrl) {
 
 		//4. Display play again button and remove all other children from the quiz-box
 		UICtrl.playAgain();
+		//DOM.playAgain.addEventListener('click', controller.init);
+		
 	};
 
 	return{
